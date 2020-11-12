@@ -9,35 +9,51 @@ import (
 	"github.com/sobczak-m/time/rate"
 )
 
-func req(l *rate.Limiter, i int) error {
-	fmt.Printf("-----------------------------  request: %d\n", i)
+func req(l *rate.Limiter, i int, burst bool) error {
+	fmt.Printf("-----------------------------  request: %d | Burst: %v\n", i, burst)
 	if !l.Allow() {
 		return errors.New("rate limit exceeded")
 	}
-	fmt.Println("-----------------------------------------------")
+	fmt.Println("----------------------------------------------- processed ")
 	return nil
 }
 
-func run(l *rate.Limiter, t *time.Ticker, count int) error {
-	idx := 0
-	for range t.C {
-		idx++
-		err := req(l, idx)
-
+func run(l *rate.Limiter, t *time.Ticker, burstRequestNumber int, requestNumber int) error {
+	idx := 1
+	for idx <= burstRequestNumber {
+		err := req(l, idx, true)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "ERROR:", err)
 			return err
 		}
-		if idx >= count {
+		if idx >= requestNumber {
 			break
 		}
-
+		idx++
 	}
+
+	for range t.C {
+		err := req(l, idx, false)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "ERROR:", err)
+			return err
+		}
+		if idx >= requestNumber {
+			break
+		}
+		idx++
+	}
+
 	return nil
 }
 
 func main() {
-	l := rate.NewLimiter(5, 5)
-	t := time.NewTicker(100 * time.Millisecond)
-	run(l, t, 20)
+	burst := 5
+	limit := 5
+	requests := 20
+	ticker := 10 * 100
+
+	l := rate.NewLimiter(rate.Limit(limit), burst)
+	t := time.NewTicker(time.Duration(ticker) * time.Millisecond)
+	run(l, t, burst, requests)
 }

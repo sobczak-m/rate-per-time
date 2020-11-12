@@ -391,8 +391,8 @@ func (lim *Limiter) advance(now time.Time) (newNow time.Time, newLast time.Time,
 func (limit Limit) durationFromTokens(tokens float64) time.Duration {
 	fmt.Printf("Wykorzystane Tokeny: %f\n", tokens)
 	fmt.Printf("Limit: %f\n", float64(limit))
-	seconds := tokens / float64(limit)
-	fmt.Printf("Seconds: %f\n", tokens/float64(limit))
+	seconds := tokens / float64(limit) * 10
+	fmt.Printf("Seconds: %f\n", seconds)
 	fmt.Printf("Duration from tokens: %s\n", time.Nanosecond*time.Duration(1e9*seconds))
 	return time.Nanosecond * time.Duration(1e9*seconds)
 }
@@ -406,6 +406,6 @@ func (limit Limit) tokensFromDuration(d time.Duration) float64 {
 	nsec := float64(d%time.Second) * float64(limit)
 	//fmt.Printf("Sec: %f\n", sec)
 	//fmt.Printf("NSec: %f\n", nsec)
-	fmt.Printf("TokensFromDuration: %f\n", sec+nsec/1e9)
-	return sec + nsec/1e9
+	fmt.Printf("TokensFromDuration: %f\n", (sec+nsec/1e9)/10)
+	return (sec + nsec/1e9) / 10
 }
