@@ -6,7 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/sobczak-m/time/rate"
+	"golang.org/x/time/rate"
+	//"github.com/sobczak-m/time/rate"
 )
 
 func req(l *rate.Limiter, i int, burst bool) error {
@@ -31,7 +32,7 @@ func run(l *rate.Limiter, t *time.Ticker, burstRequestNumber int, requestNumber 
 		}
 		idx++
 	}
-
+	time.Sleep(2000)
 	for range t.C {
 		err := req(l, idx, false)
 		if err != nil {
@@ -49,9 +50,9 @@ func run(l *rate.Limiter, t *time.Ticker, burstRequestNumber int, requestNumber 
 
 func main() {
 	burst := 5
-	limit := 5
+	limit := 0.5
 	requests := 20
-	ticker := 10 * 100
+	ticker := 10 * 199
 
 	l := rate.NewLimiter(rate.Limit(limit), burst)
 	t := time.NewTicker(time.Duration(ticker) * time.Millisecond)

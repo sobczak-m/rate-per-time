@@ -2,4 +2,4 @@ module github.com/sobczak-m/rate-per-time
 
 go 1.15
 
-require github.com/sobczak-m/time v0.0.0-20201110092913-ee9273832a88
+require golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e

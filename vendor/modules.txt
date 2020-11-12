@@ -1,3 +1,0 @@
-# github.com/sobczak-m/time v0.0.0-20201110092913-ee9273832a88
-## explicit
-github.com/sobczak-m/time/rate
