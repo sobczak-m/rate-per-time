@@ -9,8 +9,11 @@ import (
 	"github.com/sobczak-m/time/rate"
 )
 
-func req(l *rate.Limiter, i int, burst bool) error {
-	fmt.Printf("-----------------------------  request: %d | Burst: %v\n", i, burst)
+func req(l *rate.Limiter, i int, burst bool, startTime int64) error {
+	now := time.Now()
+	requestTime := now.Unix()
+	requestDuration := requestTime - startTime
+	fmt.Printf("-----------------------------  request: %d | Time: %d | Burst: %v\n", i, requestDuration, burst)
 	if !l.Allow() {
 		return errors.New("rate limit exceeded")
 	}
@@ -18,10 +21,12 @@ func req(l *rate.Limiter, i int, burst bool) error {
 	return nil
 }
 
-func run(l *rate.Limiter, t *time.Ticker, burstRequestNumber int, requestNumber int) error {
+func run(l *rate.Limiter, t *time.Ticker, burstRequestNumber int, requestNumber int, ticker time.Duration) error {
 	idx := 1
+	now := time.Now()
+	startTime := now.Unix()
 	for idx <= burstRequestNumber {
-		err := req(l, idx, true)
+		err := req(l, idx, true, startTime)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "ERROR:", err)
 			return err
@@ -30,10 +35,11 @@ func run(l *rate.Limiter, t *time.Ticker, burstRequestNumber int, requestNumber 
 			break
 		}
 		idx++
+		time.Sleep(ticker * time.Millisecond)
 	}
 
 	for range t.C {
-		err := req(l, idx, false)
+		err := req(l, idx, false, startTime)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "ERROR:", err)
 			return err
@@ -48,12 +54,27 @@ func run(l *rate.Limiter, t *time.Ticker, burstRequestNumber int, requestNumber 
 }
 
 func main() {
-	burst := 5
-	limit := 5
-	requests := 20
-	ticker := 10 * 100
+	var laas_limit float32 = 300
+	var ticker time.Duration = 6000
+	laas_period := 3600
+	requests := 600
+
+	burst := calculateBurst(laas_limit)
+	limit := calculateLimitPerSecond(laas_limit, laas_period)
 
 	l := rate.NewLimiter(rate.Limit(limit), burst)
-	t := time.NewTicker(time.Duration(ticker) * time.Millisecond)
-	run(l, t, burst, requests)
+	t := time.NewTicker(ticker * time.Millisecond)
+	run(l, t, burst, requests, ticker)
+}
+
+func calculateBurst(limit float32) int {
+	burst := int(limit)
+	if burst >= 1 {
+		return burst
+	}
+	return 1
+}
+
+func calculateLimitPerSecond(limit float32, period int) float32 {
+	return limit / float32(period)
 }

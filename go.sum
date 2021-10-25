@@ -1,16 +1,2 @@
-github.com/sobczak-m/time v0.0.0-20201109171239-2f90f218aea4 h1:ot++6/LRX5yFYaW2Jwf2/RljbCi39vy69KHuLWdynIs=
-github.com/sobczak-m/time v0.0.0-20201109171239-2f90f218aea4/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=
-github.com/sobczak-m/time v0.0.0-20201110070332-669b950c31b1 h1:w4la9gPo/Mw1qFbCpE/YPP1xkE3tbddJl+g4eWpm0NA=
-github.com/sobczak-m/time v0.0.0-20201110070332-669b950c31b1/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=
-github.com/sobczak-m/time v0.0.0-20201110071007-7d0760f35b62 h1:ThFf6uMtt+O/PtIT0P1jc6By83YAZv08VcHMX7Yzn3c=
-github.com/sobczak-m/time v0.0.0-20201110071007-7d0760f35b62/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=
-github.com/sobczak-m/time v0.0.0-20201110090523-c49ad8ced672 h1:WwWLF69rhEIJAaIEoGNUzAFrJVL+96WImNZShJfis8M=
-github.com/sobczak-m/time v0.0.0-20201110090523-c49ad8ced672/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=
-github.com/sobczak-m/time v0.0.0-20201110091115-92008763ee28 h1:kHnRh9fwguNOiRGxgHbzPu1N+ZQL6zVD+Xcev5/Pleo=
-github.com/sobczak-m/time v0.0.0-20201110091115-92008763ee28/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=
-github.com/sobczak-m/time v0.0.0-20201110091543-044b65a704ff h1:+i7cCEtf5XBDizLSm3QSCDE81j4fJRlmAilZRaEzYuQ=
-github.com/sobczak-m/time v0.0.0-20201110091543-044b65a704ff/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=
-github.com/sobczak-m/time v0.0.0-20201110092127-f1547c865583 h1:fCKqXWCCinD4l6zscnjrTVr8TOyX1kXWodS3/n3VOeE=
-github.com/sobczak-m/time v0.0.0-20201110092127-f1547c865583/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=
 github.com/sobczak-m/time v0.0.0-20201110092913-ee9273832a88 h1:W/9pV46DqdDhk4slZMPkXBIaWy0ARlXtHIYjQ7jzFSg=
 github.com/sobczak-m/time v0.0.0-20201110092913-ee9273832a88/go.mod h1:EXn0YD52hfWfHRPbNKxezqvd4KK7MCiMfS3s8EmsnvI=

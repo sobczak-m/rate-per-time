@@ -368,9 +368,11 @@ func (lim *Limiter) advance(now time.Time) (newNow time.Time, newLast time.Time,
 	}
 
 	// Avoid making delta overflow below when last is very old.
+	fmt.Println(float64(lim.burst) - lim.tokens)
 	maxElapsed := lim.limit.durationFromTokens(float64(lim.burst) - lim.tokens)
 	elapsed := now.Sub(last)
 	if elapsed > maxElapsed {
+		fmt.Println("--------")
 		elapsed = maxElapsed
 	}
 
@@ -381,7 +383,7 @@ func (lim *Limiter) advance(now time.Time) (newNow time.Time, newLast time.Time,
 		tokens = burst
 	}
 
-	fmt.Printf("Pozostałe tokeny: %f\n", tokens)
+	fmt.Printf("1Pozostałe tokeny: %f\n", tokens)
 
 	return now, last, tokens
 }
